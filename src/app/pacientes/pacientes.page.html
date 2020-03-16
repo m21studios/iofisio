@@ -1,0 +1,284 @@
+
+
+<ion-content>
+
+  
+  <div class="wrapper">
+    <!-- Sidebar  -->
+    <nav id="sidebar">
+      <div class="sidebar-header">
+        <h3>Consultorio de Fisioterapia</h3>
+        <strong>CF</strong>
+      </div>
+
+      <ul class="list-unstyled components">
+          
+        <li>
+          <a (click)="iradasboard()" routerLinkActive="active">
+            <i class="fas fa-briefcase"></i>
+            Dashboard
+          </a>
+          <a (click)="nuevaCita()" routerLinkActive="active">
+            <i class="fas fa-briefcase"></i>
+            Agenda
+          </a>
+          <a (click)="listadeHistorias()" routerLinkActive="active">
+            <i class="fas fa-copy"></i>
+            Historial
+          </a>
+                
+        </li>
+          <li>
+            <a (click)="listadePacientes()" routerLinkActive="active">
+              <i class="fas fa-image"></i>
+              Pacientes
+            </a>
+          </li> 
+        </ul>
+
+        <ul class="list-unstyled CTAs">
+          <li>
+            <a href="#" class="article" routerLinkActive="active">Inicio</a>
+          </li>
+        </ul>
+    </nav>
+
+    <!-- Page Content  -->
+    <div id="content">
+      <!--Header Nav Dashboard-->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light"> 
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">Listado de Pacientes</span>
+            <!--input para consultar pacientes-->
+            <!--form class="form-inline my-2 my-lg-0">
+                <input [(ngModel)]="identificacionDelPaciente" [ngModelOptions]="{standalone: true}" class="form-control mr-sm-2" type="search" placeholder="identificacion" aria-label="Search">
+                <button (click)="consultarPaciente()" class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar Paciente</button>
+                
+            </form-->
+        </div>
+        
+      </nav>
+
+      <br><br>
+      <!--FORMULARIO-->
+
+      <div class="card">
+        <div class="card-body">
+          <form>
+            <label>Informacion del Paciente</label>
+            <div class="form-row">
+              <div class="col-4">
+                <input 
+                [(ngModel)]="nuevopaciente.identificacion" 
+                [ngModelOptions]="{standalone: true}" 
+                type="text" 
+                class="form-control" 
+                id="identificacion" 
+                placeholder="Identificacion"
+                >
+              </div>
+              <div class="col-4">
+                <input 
+                  [(ngModel)]="nuevopaciente.nombres" 
+                  [ngModelOptions]="{standalone: true}" 
+                  type="text" 
+                  class="form-control" 
+                  id="nombres" 
+                  placeholder="Nombres">
+              </div>
+          
+              <div class="col-4">
+                <input 
+                  [(ngModel)]="nuevopaciente.apellidos"
+                  [ngModelOptions]="{standalone: true}" 
+                  type="text" 
+                  class="form-control" 
+                  id="apellidos" 
+                  placeholder="Apellidos">
+              </div>
+            </div>
+            
+            <br>
+            <div class="form-row">
+              <div class="col-4">
+                <input 
+                  [(ngModel)]="nuevopaciente.telefono" 
+                  [ngModelOptions]="{standalone: true}" 
+                  type="text" 
+                  class="form-control" 
+                  id="telefono" 
+                  placeholder="Telefono">
+              </div>
+          
+              <div class="col-4">
+                <input 
+                  [(ngModel)]="nuevopaciente.carnet" 
+                  [ngModelOptions]="{standalone: true}" 
+                  type="text" 
+                  class="form-control" 
+                  id="carnet" 
+                  placeholder="Carnet - EPS">
+              </div>
+          
+              <div class="col-4">
+                
+              </div>
+            </div>
+            <br>
+            <!--fecha de nacimiento-->
+            <label>Fecha de Nacimiento</label>
+            <div class="form-row">
+              
+                <div class="col-2">
+                  <input 
+                    [(ngModel)]="nuevopaciente.dianacimiento" 
+                    [ngModelOptions]="{standalone: true}" type="text" class="form-control" placeholder="Dia">
+                </div>
+                <div class="col-2">
+                  <input 
+                    [(ngModel)]="nuevopaciente.mesnacimiento" 
+                    [ngModelOptions]="{standalone: true}" type="text" class="form-control" placeholder="Mes">
+                </div>
+                <div class="col-2">
+                  <input 
+                    [(ngModel)]="nuevopaciente.anionacimiento" 
+                    [ngModelOptions]="{standalone: true}"
+                    type="text" class="form-control" placeholder="Año">
+                </div>
+            
+            </div>
+            <br>
+            <div class="form-row">
+              <div class="col-6">
+                <label>Genero</label>
+                <ion-select placeholder="Seleccionar Genero" [(ngModel)]="nuevopaciente.genero" [ngModelOptions]="{standalone: true}">
+                  <ion-select-option value="Femenino">Femenino</ion-select-option>
+                  <ion-select-option value="Masculino">Masculino</ion-select-option>
+                </ion-select> 
+              </div>
+          
+              <div class="col-6">
+                <label>Esta embarazada?</label>
+                <ion-select placeholder="Selecciona Si o No" [(ngModel)]="nuevopaciente.embarazada" [ngModelOptions]="{standalone: true}">
+                  <ion-select-option value="Si">Si</ion-select-option>
+                  <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+              </div>
+
+            </div>
+            <br>
+            <div class="form-row">
+              <div class="col-6">
+                <button (click)="GuardarNuevoPaciente()" class="btn btn-primary my-2 my-sm-0 btn-block btn-lg" type="submit">Registrar Nuevo Paciente</button>
+              </div>
+              <div class="col-6">
+                
+              </div>
+            </div>
+          
+          </form>
+        </div>
+      </div>
+
+      <div class="line"></div>
+
+      <!--Lista de pacientes registrados-->
+      <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Identificacion</th>
+              <th>Nombres</th>
+              <th>Apellidos</th>
+              <th>Edad</th>
+              <th>Genero</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="dataIndexed"> 
+
+          </tbody>
+      </table>
+
+
+      <!--Modal para asignar citas-->
+      <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalScrollableTitle">Asignar Cita al Paciente</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+
+              <div class="introducciondash">
+                <h1>Consultorio de Fisioterapia</h1>
+                <h2>Doctora Yaritza Lopez Varon</h2>
+                <h4>Nit. 45.525.570-0</h4>
+                <p>Email: lvyari@hotmail.com - lvyari14@hotmail.com</p>
+                <p>Tel: 3134233836</p>
+                <p>Calle 2 del Comercio - Rio Viejo, Bolivar.</p>
+          
+                <div class="line"></div>
+              </div>  
+
+
+              <!--FORMULARIO-->
+          
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AGREGAR NUEVO EVENTO-->
+
+      <div class="modal fade" id="agregarNuevoEvento" tabindex="-1" role="dialog" aria-labelledby="agregarNuevoEvento" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="agregarNuevoEvento" style="color: #0984e3;">Asignar Evento al Paciente</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+
+              <div class="introducciondash">
+                <h1>Consultorio de Fisioterapia</h1>
+                <h2>Doctora Yaritza Lopez Varon</h2>
+                <h4>Nit. 45.525.570-0</h4>
+                <p>Email: lvyari@hotmail.com - lvyari14@hotmail.com</p>
+                <p>Tel: 3134233836</p>
+                <p>Calle 2 del Comercio - Rio Viejo, Bolivar.</p>
+          
+                <div class="line"></div>
+              </div>  
+
+
+              <!--FORMULARIO-->
+              <div class="form-row">
+                <div class="col-4">
+                  <input 
+                    [(ngModel)]="fechaActual" 
+                    [ngModelOptions]="{standalone: true}" type="text" class="form-control" placeholder="Fecha">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">Evento</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+
+</ion-content>

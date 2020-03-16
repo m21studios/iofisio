@@ -1,0 +1,180 @@
+<!--ion-header>
+  <ion-toolbar>
+    <ion-title>agenda</ion-title>
+  </ion-toolbar>
+</ion-header-->
+
+<ion-content>
+
+  <div class="wrapper">
+    <!-- Sidebar  -->
+    <nav id="sidebar">
+      <div class="sidebar-header">
+        <h3>Consultorio de Fisioterapia</h3>
+        <strong>CF</strong>
+      </div>
+
+      <ul class="list-unstyled components">
+          
+        <li>
+          <a (click)="iradasboard()" routerLinkActive="active">
+            <i class="fas fa-briefcase"></i>
+            Dashboard
+          </a>
+          <a (click)="nuevaCita()" routerLinkActive="active">
+            <i class="fas fa-briefcase"></i>
+            Agenda
+          </a>
+          <a (click)="listadeHistorias()" routerLinkActive="active">
+            <i class="fas fa-copy"></i>
+            Historial
+          </a>
+                
+        </li>
+          <li>
+            <a (click)="listadePacientes()" routerLinkActive="active">
+              <i class="fas fa-image"></i>
+              Pacientes
+            </a>
+          </li> 
+        </ul>
+
+        <ul class="list-unstyled CTAs">
+          <li>
+            <a href="#" class="article" routerLinkActive="active">Inicio</a>
+          </li>
+        </ul>
+    </nav>
+
+    <!-- Page Content  -->
+    <div id="content">
+      <!--Header Nav Dashboard-->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light"> 
+        <div class="container-fluid">
+          <span class="navbar-brand mb-0 h1">Agendar Citas</span>
+          <!--input para consultar pacientes-->
+          <!--form class="form-inline my-2 my-lg-0">
+              <input [(ngModel)]="identificacionDelPaciente" [ngModelOptions]="{standalone: true}" class="form-control mr-sm-2" type="search" placeholder="identificacion" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" (click)="consultarPaciente()">Buscar Paciente</button>
+          </form-->   
+        </div>
+      </nav>
+
+      <div class="line"></div>
+
+      <table class="table table-striped" *ngIf="pacienteencontrado">
+        <thead>
+          <tr>
+            <th>Identificacion</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+          </tr>
+        </thead>
+          
+        <tbody>
+          <tr *ngFor="let data of pacientes" (click)="asignarValores()">
+            <td>{{extradata.identificacion}}</td>
+            <td>{{extradata.nombres}}</td>
+            <td>{{extradata.apellidos}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="identificacion">Identificacion</label>
+                  <input 
+                      [(ngModel)]="datosDelPaciente.identificacion" 
+                      [ngModelOptions]="{standalone: true}" 
+                      type="text" 
+                      class="form-control" 
+                      id="identificacion" 
+                      aria-describedby="emailHelp">
+                  <small id="emailHelp" class="form-text text-muted">Identificacion del Paciente.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="nombres">Nombres</label>
+                    <input 
+                        [(ngModel)]="datosDelPaciente.nombres" 
+                        [ngModelOptions]="{standalone: true}"
+                        type="text" 
+                        class="form-control" 
+                        id="nombres" 
+                        aria-describedby="emailHelp">
+                    <small id="emailHelp" class="form-text text-muted">Nombres del Paciente.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="apellidos">Apellidos</label>
+                    <input 
+                        [(ngModel)]="datosDelPaciente.apellidos" 
+                        [ngModelOptions]="{standalone: true}"
+                        type="text" 
+                        class="form-control" 
+                        id="apellidos" 
+                        aria-describedby="emailHelp">
+                    <small id="emailHelp" class="form-text text-muted">Apellidos del Paciente.</small>
+                </div>
+          
+                <div class="form-group">
+                    <label for="telefono">Telefono</label>
+                    <input 
+                        [(ngModel)]="datosDelPaciente.telefono" 
+                        [ngModelOptions]="{standalone: true}"
+                        type="text" 
+                        class="form-control" 
+                        id="telefono" 
+                        aria-describedby="emailHelp">
+                    <small id="emailHelp" class="form-text text-muted">Telefono del Paciente.</small>
+                </div>
+              </div>
+          </div>
+        </div> 
+        
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <!--fecha y hora de la cita-->
+              <div class="form-group">
+                  <label for="fecha">Fecha</label>
+                  <input 
+                      [(ngModel)]="datosDelPaciente.fecha" 
+                      [ngModelOptions]="{standalone: true}"
+                      type="text" 
+                      class="form-control" 
+                      id="fecha" 
+                      aria-describedby="emailHelp">
+                  <small id="emailHelp" class="form-text text-muted">Fecha de asignacion de la cita.</small>
+              </div>
+              <div class="form-group">
+                  <label for="hora">Hora</label>
+                  <ion-datetime displayFormat="HH:mm A" 
+                    [(ngModel)]="datosDelPaciente.hora" 
+                    [ngModelOptions]="{standalone: true}"></ion-datetime>
+                  
+                  <!--input 
+                      [(ngModel)]="datosDelPaciente.hora" 
+                      [ngModelOptions]="{standalone: true}"
+                      type="text" 
+                      class="form-control" 
+                      id="hora" 
+                      aria-describedby="emailHelp"-->
+                  <small id="emailHelp" class="form-text text-muted">Hora de asignacion para la cita.</small>
+              </div>
+              <div class="form-group">
+                <button type="button" class="btn btn-primary btn-lg btn-block" (click)="AsignarNuevaCita()">Asignar Cita</button>
+              </div>
+              <!--Bton guardar--> 
+            </div>
+          </div>
+        </div>  
+      </div> 
+    </div>
+
+  </div>
+
+</ion-content>

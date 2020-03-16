@@ -1,0 +1,136 @@
+<!--ion-header>
+  <ion-toolbar>
+    <ion-title>Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header-->
+
+<ion-content>
+  
+  <div class="wrapper">
+    <!-- Sidebar  -->
+    <nav id="sidebar">
+      <div class="sidebar-header">
+        <h3>Consultorio de Fisioterapia</h3>
+        <strong>CF</strong>
+      </div>
+
+      <ul class="list-unstyled components">
+          
+        <li>
+          <a (click)="iradasboard()" routerLinkActive="active">
+            <i class="fas fa-briefcase"></i>
+            Dashboard
+          </a>
+          <a (click)="nuevaCita()" routerLinkActive="active">
+            <i class="fas fa-briefcase"></i>
+            Agenda
+          </a>
+          <a (click)="listadeHistorias()" routerLinkActive="active">
+            <i class="fas fa-copy"></i>
+            Historial
+          </a>
+                
+        </li>
+          <li>
+            <a (click)="listadePacientes()" routerLinkActive="active">
+              <i class="fas fa-image"></i>
+              Pacientes
+            </a>
+          </li> 
+        </ul>
+
+        <ul class="list-unstyled CTAs">
+          <li>
+            <a href="#" class="article" routerLinkActive="active">Inicio</a>
+          </li>
+        </ul>
+    </nav>
+
+    <!-- Page Content  -->
+    <div id="content">
+      <!--Header Nav Dashboard-->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light"> 
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1" >Dashboard</span>
+        </div>
+      </nav>
+
+      <!--Cards Dashboard-->
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title" style="color: #0984e3;">Citas para hoy</h5>
+              <div class="row">
+                <div class="col-sm-6">
+                  <p class="card-text">Estas son las Citas que tienes programadas para el dia de hoy.</p>
+                </div>
+                <div class="col-sm-6">
+                  <h1 style="font-size: 80px; text-align: center; color: #fd79a8;" id="totalcitas"></h1>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title" style="color: #0984e3;">Pacientes Registrados</h5>
+              <div class="row">
+                <div class="col-sm-6">
+                  <p class="card-text">Numero de pacientes Registrados en tu Base de datos.</p>
+                </div>
+                <div class="col-sm-6">
+                  <h1 style="font-size: 80px; text-align: center; color: #fd79a8;" id="totalpacientes"></h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="line"></div>
+
+      <div class="card" *ngIf="nohayCitas">
+      <div class="card-body">
+        <h5 class="card-title">No hay Citas Asignadas para el Dia de Hoy.</h5>
+      </div>
+      <div class="line"></div>
+      </div>
+
+
+
+      <!--Lista de citas asignadas para hoy-->
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title" style="color: #0984e3;">CITAS ASIGNADAS PARA HOY</h5>
+
+              <!--tabla donde se muestran las citas asignadas-->
+              <table class="table table-striped">
+                <thead>
+                    <tr>
+                      <th>Identificacion</th>
+                      <th>Nombres</th>
+                      <th>Apellidos</th>
+                      <th>Fecha</th>
+                      <th>Hora</th>
+                    </tr>
+                </thead>
+                <tbody id="dataIndexed">
+                  
+                </tbody>
+              </table>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+            
+    </div>
+  </div>
+
+
+</ion-content>
